@@ -1,8 +1,12 @@
 'use strict';
 
-var response = require('../res');
-var connection = require('../db/dbConfig');
+const response = require('../res');
+const connection = require('../db/dbConfig');
 
-exports.index = function (req, res) {
+const index = (req, res) => {
     response.ok('rest api berjalan lancar');
 };
+
+module.exports = {
+    index
+}

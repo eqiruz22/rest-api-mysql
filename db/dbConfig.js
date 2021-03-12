@@ -7,11 +7,9 @@ const conn = mysql.createConnection({
     database: 'asset'
 });
 
-conn.connect((err, resolve) => {
-    if (resolve) {
-        console.log('Connection to database success');
-    }
-    throw err;
+conn.connect((err) => {
+    if (err) throw err;
+    console.log('Connection success');
 });
 
 module.exports = conn;
