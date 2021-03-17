@@ -11,5 +11,6 @@ const AssetController = require('../controllers/AssetController');
 const route = express.Router();
 
 route.get('/', AssetController.index);
+route.get('/list', AssetController.fetchAll);
 
 module.exports = route;
