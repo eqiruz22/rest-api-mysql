@@ -30,8 +30,29 @@ const fetchById = (req, res) => {
     )
 }
 
+const addData = (req, res) => {
+    const merk = req.body.merk;
+    const sn = req.body.serial_number;
+    const type = req.body.type;
+    const tag = req.body.tag;
+    const status = req.body.status;
+    const spesifikasi = req.body.spesifikasi;
+    const tanggal = req.body.tangaal;
+    connection.query('insert into asset (merk,serial_number,type,tag,status,spesifikasi,tanggal) values (?,?,?,?,?,?,?)',
+        [merk, sn, type, tag, status, spesifikasi, tanggal],
+        (error, rows, fields) => {
+            if (error) {
+                throw error;
+            } else {
+                response.ok("Data berhasil ditambahkan", res);
+            }
+        }
+    )
+}
+
 module.exports = {
     index,
     fetchAll,
-    fetchById
+    fetchById,
+    addData
 }

@@ -13,5 +13,6 @@ const route = express.Router();
 route.get('/', AssetController.index);
 route.get('/list', AssetController.fetchAll);
 route.get('/list/:id', AssetController.fetchById);
+route.post('/add-data', AssetController.addData);
 
 module.exports = route;
