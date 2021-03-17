@@ -17,7 +17,21 @@ const fetchAll = (req, res) => {
     })
 }
 
+const fetchById = (req, res) => {
+    let id = req.params.id;
+    connection.query('select * from asset where id = ?', [id],
+        (error, rows, fields) => {
+            if (error) {
+                throw error;
+            } else {
+                response.ok(rows, res);
+            }
+        }
+    )
+}
+
 module.exports = {
     index,
-    fetchAll
+    fetchAll,
+    fetchById
 }
