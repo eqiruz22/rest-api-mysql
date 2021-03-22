@@ -51,7 +51,7 @@ const addData = (req, res) => {
 }
 
 const updateData = (req, res) => {
-    let id = req.params.id;
+    let id = req.body.id;
     const merk = req.body.merk;
     const sn = req.body.serial_number;
     const type = req.body.type;
@@ -60,14 +60,25 @@ const updateData = (req, res) => {
     const spesifikasi = req.body.spesifikasi;
     const tanggal = req.body.tanggal;
 
-    connection.query('update asset set id=?, merk=?, sn=?, type=?, tag=?, status=?, spesifikasi=?, tanggal=?',
-        [merk, sn, type, tag, status, spesifikasi, tanggal], (error, rows, fields) => {
+    connection.query('update asset set merk=?,serial_number=?,type=?,tag=?,status=?,spesifikasi=?,tanggal=? WHERE id=?',
+        [merk, sn, type, tag, status, spesifikasi, tanggal, id], (error, rows, fields) => {
             if (error) {
-                throw error;
+                console.log(error);
             } else {
                 response.ok('success update data', res);
             }
         })
+}
+
+const deleteData = (req, res) => {
+    let id = req.params.id;
+    connection.query('delete from asset where id=?', [id], (error, rows, fields) => {
+        if (error) {
+            console.log(error)
+        } else {
+            response.ok('success delete data', res);
+        }
+    })
 }
 
 module.exports = {
@@ -75,5 +86,6 @@ module.exports = {
     fetchAll,
     fetchById,
     addData,
-    updateData
+    updateData,
+    deleteData
 }
