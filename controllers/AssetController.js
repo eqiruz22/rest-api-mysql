@@ -37,7 +37,7 @@ const addData = (req, res) => {
     const tag = req.body.tag;
     const status = req.body.status;
     const spesifikasi = req.body.spesifikasi;
-    const tanggal = req.body.tangaal;
+    const tanggal = req.body.tanggal;
     connection.query('insert into asset (merk,serial_number,type,tag,status,spesifikasi,tanggal) values (?,?,?,?,?,?,?)',
         [merk, sn, type, tag, status, spesifikasi, tanggal],
         (error, rows, fields) => {
@@ -50,9 +50,30 @@ const addData = (req, res) => {
     )
 }
 
+const updateData = (req, res) => {
+    let id = req.params.id;
+    const merk = req.body.merk;
+    const sn = req.body.serial_number;
+    const type = req.body.type;
+    const tag = req.body.tag;
+    const status = req.body.status;
+    const spesifikasi = req.body.spesifikasi;
+    const tanggal = req.body.tanggal;
+
+    connection.query('update asset set id=?, merk=?, sn=?, type=?, tag=?, status=?, spesifikasi=?, tanggal=?',
+        [merk, sn, type, tag, status, spesifikasi, tanggal], (error, rows, fields) => {
+            if (error) {
+                throw error;
+            } else {
+                response.ok('success update data', res);
+            }
+        })
+}
+
 module.exports = {
     index,
     fetchAll,
     fetchById,
-    addData
+    addData,
+    updateData
 }

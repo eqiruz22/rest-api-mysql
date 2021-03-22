@@ -14,5 +14,6 @@ route.get('/', AssetController.index);
 route.get('/list', AssetController.fetchAll);
 route.get('/list/:id', AssetController.fetchById);
 route.post('/add-data', AssetController.addData);
+route.put('/update-data', AssetController.updateData);
 
 module.exports = route;
