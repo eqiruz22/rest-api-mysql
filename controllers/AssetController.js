@@ -19,7 +19,7 @@ const fetchAll = (req, res) => {
 
 const fetchById = (req, res) => {
     let id = req.params.id;
-    connection.query('select * from asset where id = ?', [id],
+    connection.query('select * from asset where id_asset = ?', [id],
         (error, rows, fields) => {
             if (error) {
                 throw error;
@@ -34,11 +34,11 @@ const addData = (req, res) => {
     const merk = req.body.merk;
     const sn = req.body.serial_number;
     const type = req.body.type;
-    const tag = req.body.tag;
+    const tag = req.body.tagging_number;
     const status = req.body.status;
     const spesifikasi = req.body.spesifikasi;
     const tanggal = req.body.tanggal;
-    connection.query('insert into asset (merk,serial_number,type,tag,status,spesifikasi,tanggal) values (?,?,?,?,?,?,?)',
+    connection.query('insert into asset (merk,serial_number,type,tagging_number,status,spesifikasi,tanggal) values (?,?,?,?,?,?,?)',
         [merk, sn, type, tag, status, spesifikasi, tanggal],
         (error, rows, fields) => {
             if (error) {
@@ -60,7 +60,7 @@ const updateData = (req, res) => {
     const spesifikasi = req.body.spesifikasi;
     const tanggal = req.body.tanggal;
 
-    connection.query('update asset set merk=?,serial_number=?,type=?,tag=?,status=?,spesifikasi=?,tanggal=? WHERE id=?',
+    connection.query('update asset set merk=?,serial_number=?,type=?,tagging_number=?,status=?,spesifikasi=?,tanggal=? WHERE id_asset=?',
         [merk, sn, type, tag, status, spesifikasi, tanggal, id], (error, rows, fields) => {
             if (error) {
                 console.log(error);
@@ -72,7 +72,7 @@ const updateData = (req, res) => {
 
 const deleteData = (req, res) => {
     let id = req.params.id;
-    connection.query('delete from asset where id=?', [id], (error, rows, fields) => {
+    connection.query('delete from asset where id_asset=?', [id], (error, rows, fields) => {
         if (error) {
             console.log(error)
         } else {
