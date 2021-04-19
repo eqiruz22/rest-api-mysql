@@ -70,9 +70,19 @@ const updateData = (req, res) => {
         })
 }
 
+const groupData = (req,res) => {
+    connection.query('select asset.merk, asset.type, asset.tagging_number, asset.serial_number, asset.status, pakai_aset.nama_user, asset.tanggal from pakai_aset join asset where pakai_aset.id_asset = asset.id_asset', (error,rows,fields) => {
+        if (error) {
+            console.log(error);
+        } else {
+            response.ok(rows,res);
+        }
+    });
+}
+
 const deleteData = (req, res) => {
     let id = req.params.id;
-    connection.query('delete from asset where id_asset=?', [id], (error, rows, fields) => {
+    connection.query('delete from asset where id_asset =?', [id], (error, rows, fields) => {
         if (error) {
             console.log(error)
         } else {
@@ -87,5 +97,6 @@ module.exports = {
     fetchById,
     addData,
     updateData,
+    groupData,
     deleteData
 }
