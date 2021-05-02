@@ -7,13 +7,13 @@ const config = require('../config/secret');
 const response = require('../res');
 
 const register = (req,res) => {
-    const postData = {
+    var postData = {
         username : req.body.username,
         password : sha256(req.body.password)
     }
 
-    const query = "select username from ?? where ??";
-    const table = ["user_role","username", postData.username];
+    var query = "select username from ?? where ??";
+    var table = ["user_role","username", postData.username];
 
     query = mysql.format(query,table);
 
@@ -22,8 +22,8 @@ const register = (req,res) => {
             console.log(err);
         } else {
             if(rows.length == 0) {
-                const query = "insert into ?? set ?";
-                const table = ["user_role"];
+                var query = "insert into ?? set ?";
+                var table = ["user_role"];
                 query = mysql.format(query,table);
                 connect.query(query,postData, (err,rows,fields) => {
                     if(err) {

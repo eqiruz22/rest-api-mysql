@@ -2,15 +2,15 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const assetRoute = require('./routes/assetRoute');
+const morgan = require('morgan');
 const app = express();
 const port = 4000;
 
 app.use(cors());
-app.set('view engine', 'ejs');
-app.use(express.static('public'));
 app.use(bodyParser.json());
+app.use(morgan('dev'));
 app.use(express.urlencoded({
-    extended: false
+    extended: true
 }));
 
 app.use(assetRoute);
