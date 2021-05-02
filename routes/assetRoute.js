@@ -1,11 +1,5 @@
 'use strict';
 
-// module.exports = function (app) {
-//     var myjson = require('../controllers/AssetController');
-
-//     app.route('/')
-//         .get(myjson.index);
-// }
 const express = require('express');
 const AssetController = require('../controllers/AssetController');
 const route = express.Router();
