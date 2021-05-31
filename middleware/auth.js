@@ -12,7 +12,7 @@ const register = (req,res) => {
         password : sha256(req.body.password)
     }
 
-    var query = "select username from ?? where ??";
+    var query = "select username from ?? where ??=?";
     var table = ["user_role","username", postData.username];
 
     query = mysql.format(query,table);
@@ -33,12 +33,60 @@ const register = (req,res) => {
                     }
                 })
             } else {
-                response.ok('username telah terdaftar');
+                response.ok('username telah terdaftar',res);
+            }
+        }
+    })
+}
+
+const login = (req,res) => {
+    var postLogin = {
+        username : req.body.username,
+        password : req.body.password
+    }
+    
+    var query = "select * from ?? where ??=? and ??=?";
+    var table = ["user_role","username",postLogin.username,"password",sha256(postLogin.password),]
+
+    query = mysql.format(query,table);
+    connect.query(query, (err,rows) => {
+        if(err) {
+            console.log(err);
+        } else {
+            if(rows.length == 1) {
+                var token = jwt.sign({rows}, config.secret, {
+                    expiresIn: 86400
+                });
+                id_user_role = rows[0].id_user;
+                var data = {
+                    id_user_role: id_user_role,
+                    access_token: token,
+                    ip_address: ip.address()
+                }
+                var query = "insert into ?? set ?";
+                var table = ["table_token"]
+
+                query = mysql.format(query,table);
+                connect.query(query,data, (err,rows) => {
+                    if(err){
+                        console.log(err);
+                    } else {
+                        response.ok({
+                            success: true,
+                            message:'Token generate',
+                            token:token,
+                            currUser:data.id_user_role
+                        },res);
+                    }
+                });
+            } else {
+                response.fail("username atau password salah",res);
             }
         }
     })
 }
 
 module.exports = {
-    register
+    register,
+    login
 }

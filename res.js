@@ -10,6 +10,15 @@ exports.ok = (values, res) => {
     res.end();
 }
 
+exports.fail = (values,res) => {
+    var data = {
+        'status':404,
+        'values':values
+    };
+    res.json(data);
+    res.end();
+}
+
 // exports.nestedData = (values, res) => {
 //     const hasil = values.reduce((acc,items) => {
 //         if(acc[items.nama_user]){

@@ -6,6 +6,7 @@ const MiddlewareAuth = require('../middleware/auth');
 const route = express.Router();
 
 route.post('/api/auth/registration', MiddlewareAuth.register);
+route.post('/api/auth/login', MiddlewareAuth.login);
 route.get('/api/', AssetController.index);
 route.get('/api/list', AssetController.fetchAll);
 route.get('/api/list/:id', AssetController.fetchById);
