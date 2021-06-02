@@ -9,7 +9,8 @@ const response = require('../res');
 const register = (req,res) => {
     var postData = {
         username : req.body.username,
-        password : sha256(req.body.password)
+        password : sha256(req.body.password),
+        role : req.body.role
     }
 
     var query = "select username from ?? where ??=?";
@@ -86,7 +87,12 @@ const login = (req,res) => {
     })
 }
 
+const testRole = (req,res) => {
+    response.ok("this site only for role 1",res);
+}
+
 module.exports = {
     register,
-    login
+    login,
+    testRole
 }
